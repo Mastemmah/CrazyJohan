@@ -1,0 +1,32 @@
+# .goreleaser.yaml
+version: 2
+
+project_name: crazy_johan
+
+builds:
+  - id: crazy_johan
+    main: ./main.go
+    binary: crazy_johan
+    goos:
+      - linux
+      - windows
+      - darwin # macOS
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+archives:
+  - id: crazy_johan_archives
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: 'checksums.txt'
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
